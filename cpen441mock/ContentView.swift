@@ -8,17 +8,32 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var username: String = ""
+    @State private var password: String = ""
+    @State private var isLoggedIn: Bool = true
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if isLoggedIn {
+            NavigationView {
+               MainView()
+           }
+        } else {
+            VStack {
+                TextField("Username", text: $username)
+                    .padding()
+                    .border(Color.gray)
+                SecureField("Password", text: $password)
+                    .padding()
+                    .border(Color.gray)
+                Button("Log In") {
+                    if username == "Student" && password == "sbme" {
+                        isLoggedIn = true
+                    }
+                }
+                .padding()
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
-#Preview {
-    ContentView()
-}
