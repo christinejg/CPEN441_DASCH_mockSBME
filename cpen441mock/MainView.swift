@@ -15,6 +15,10 @@ func timeOn(date: Date, hour: Int, minute: Int) -> Date {
 }
 
 struct MainView: View {
+    @State private var selectedRoomNames: Set<String> = []
+    @State private var minCapacity: Int = 0
+    @State private var selectedResourceType: String = "-All-"
+    
     @State private var startDate = Date()
     @State private var duration: Int = 7
     @State private var endDate = Calendar.current.date(byAdding: .day, value: 7, to: Date())!
@@ -23,6 +27,8 @@ struct MainView: View {
     @State private var rooms: [Room] = [
         Room(
             name: "2001-Project Room",
+            description: "A quiet space for project collaboration.",
+            contact: "Contact: project-room@uni.edu",
             bookings: [
                 Booking(
                     date: Date(),
@@ -37,6 +43,8 @@ struct MainView: View {
         ),
         Room(
             name: "2003-Project Room",
+            description: "Room with a whiteboard and comfortable seating.",
+            contact: "Contact: room-booking@uni.edu",
             bookings: [
                 Booking(
                     date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
@@ -48,16 +56,91 @@ struct MainView: View {
             capacity: 8,
             hasProjector: false,
             hasWhiteboard: true
+        ),
+        Room(
+            name: "2005-Project Room",
+            description: "A cozy space with access to a projector and seating for group work.",
+            contact: "Contact: 2005-room@uni.edu",
+            bookings: [
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 9, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 10, minute: 30),
+                    title: "Research Discussion"
+                )
+            ],
+            capacity: 4,
+            hasProjector: true,
+            hasWhiteboard: false
+        ),
+        Room(
+            name: "2007-Project Room",
+            description: "Equipped with a large whiteboard and ample seating for brainstorming.",
+            contact: "Contact: 2007-room@uni.edu",
+            bookings: [
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 14, minute: 30),
+                    title: "Design Thinking Session"
+                )
+            ],
+            capacity: 10,
+            hasProjector: false,
+            hasWhiteboard: true
+        ),
+        Room(
+            name: "2009-Project Room",
+            description: "A well-lit space with modern furniture and technology setup.",
+            contact: "Contact: 2009-room@uni.edu",
+            bookings: [
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 0),
+                    title: "Tech Workshop"
+                )
+            ],
+            capacity: 12,
+            hasProjector: true,
+            hasWhiteboard: true
+        ),
+        Room(
+            name: "2011-Project Room",
+            description: "A flexible space with movable tables and chairs for collaboration.",
+            contact: "Contact: 2011-room@uni.edu",
+            bookings: [
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 5, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 10, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 12, minute: 0),
+                    title: "Project Kickoff"
+                )
+            ],
+            capacity: 8,
+            hasProjector: false,
+            hasWhiteboard: true
+        ),
+        Room(
+            name: "2013-Project Room",
+            description: "A quiet corner for focused group work with minimal distractions.",
+            contact: "Contact: 2013-room@uni.edu",
+            bookings: [
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 6, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 8, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 10, minute: 0),
+                    title: "Early Bird Team Huddle"
+                )
+            ],
+            capacity: 5,
+            hasProjector: true,
+            hasWhiteboard: false
         )
     ]
     
     var body: some View {
         VStack {
-            // Date Range Display
-            Text(formatDate(startDate) + " - " + formatDate(endDate))
-                .font(.title)
-                .padding()
-
             // Navigation Arrows
             HStack {
                 Button(action: {
@@ -65,6 +148,12 @@ struct MainView: View {
                 }) {
                     Image(systemName: "arrow.left.circle.fill")
                 }
+
+                // Updated to display correctly
+                Text(formatDate(startDate) + " - " + formatDate(endDate))
+                    .font(.title)
+                    .padding()
+
                 Button(action: {
                     changeDuration(by: 7)
                 }) {
@@ -87,11 +176,17 @@ struct MainView: View {
             ScrollView {
                     VStack(alignment: .leading) {
                         if showFilter {
-                            FilterMenu(showFilter: $showFilter)
+                            FilterMenu(
+                                showFilter: $showFilter,
+                                selectedRoomNames: $selectedRoomNames,
+                                minCapacity: $minCapacity,
+                                selectedResourceType: $selectedResourceType
+                            )
                         } else {
                             Button("Resource Filter") {
                                 showFilter = true
-                            }.padding()
+                            }
+                            .padding()
                         }
 
                         ForEach(0..<duration, id: \.self) { offset in
@@ -110,9 +205,10 @@ struct MainView: View {
 
     func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
+        formatter.dateFormat = "MM/dd/yy"  // ✅ Desired format
         return formatter.string(from: date)
     }
+
 
     func changeDuration(by days: Int) {
         startDate = Calendar.current.date(byAdding: .day, value: days, to: startDate)!
@@ -124,7 +220,20 @@ struct MainView: View {
     }
     
     func filteredRooms(for date: Date) -> [Room] {
-        return rooms // <- later, apply actual filtering based on date, room, etc.
+        let filtered = rooms.filter { room in
+            // 1. Check if the room name is selected
+            (selectedRoomNames.isEmpty || selectedRoomNames.contains(room.name)) &&
+            
+            // 2. Check if room meets minimum capacity
+            (minCapacity == 0 || room.capacity >= minCapacity) &&
+            
+            // 3. Check if the room has the selected resource
+            (selectedResourceType == "-All-" ||
+                (selectedResourceType == "Projector" && room.hasProjector) ||
+                (selectedResourceType == "Whiteboard" && room.hasWhiteboard)
+            )
+        }
+        return filtered
     }
     
 

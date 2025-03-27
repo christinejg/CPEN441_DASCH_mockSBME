@@ -35,16 +35,19 @@ struct Checkbox: View {
 
 struct FilterMenu: View {
     @Binding var showFilter: Bool
+    @Binding var selectedRoomNames: Set<String>
+    @Binding var minCapacity: Int
+    @Binding var selectedResourceType: String
+
     @State private var selectedRooms: Set<String> = []
-    @State private var minCapacity: String = ""
-    @State private var selectedResourceType: String = "-All-"
+    @State private var tempMinCapacity: String = ""
+    @State private var tempResourceType: String = "-All-"
 
     var body: some View {
         VStack {
             Text("Filter")
             HStack {
                 Button("X") {
-                    // Close filter
                     showFilter = false
                 }
             }
@@ -65,21 +68,24 @@ struct FilterMenu: View {
 
             // Minimum Capacity
             Text("Minimum Capacity")
-            TextField("Enter capacity", text: $minCapacity)
+            TextField("Enter capacity", text: $tempMinCapacity)
+                .keyboardType(.numberPad)
                 .padding()
                 .border(Color.gray)
 
             // Resource Type
             Text("Resource Type")
-            Picker("Select resource", selection: $selectedResourceType) {
+            Picker("Select resource", selection: $tempResourceType) {
                 Text("-All-").tag("-All-")
                 Text("Projector").tag("Projector")
                 Text("Whiteboard").tag("Whiteboard")
             }
             .pickerStyle(MenuPickerStyle())
+            .padding()
 
             Button("Filter") {
-                // Apply filter logic
+                applyFilter()
+                showFilter = false
             }
         }
         .padding()
@@ -91,5 +97,20 @@ struct FilterMenu: View {
         } else {
             selectedRooms.insert(room)
         }
+    }
+
+    func applyFilter() {
+        // Pass selected room names to MainView
+        selectedRoomNames = selectedRooms
+
+        // Apply minimum capacity
+        if let capacity = Int(tempMinCapacity) {
+            minCapacity = capacity
+        } else {
+            minCapacity = 0
+        }
+
+        // Apply resource type
+        selectedResourceType = tempResourceType
     }
 }

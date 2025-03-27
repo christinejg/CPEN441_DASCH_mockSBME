@@ -38,7 +38,7 @@ struct RoomTableView: View {
                             Image(systemName: "info.circle")
                         }
                     }
-                    .frame(width: 150, alignment: .leading)
+                    .frame(width: 140, alignment: .leading)
                     .padding()
                     
                     // 🔥 COLUMN DIVIDER
@@ -54,7 +54,7 @@ struct RoomTableView: View {
                         }
 
                         ForEach(bookingsForDate(room: room, date: date)) { booking in
-                            Text("\(formattedTime(booking.startTime)) - \(formattedTime(booking.endTime)) \(booking.title)")
+                            Text("\(formattedTime(booking.startTime)) - \(formattedTime(booking.endTime)) \(booking.title)").font(.custom("Poppins-Medium", size: 13))
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -66,7 +66,6 @@ struct RoomTableView: View {
                 )
             }
         }
-        .padding(.horizontal)
         .padding(.bottom)
         .overlay(
             // INFO POPUP
@@ -85,8 +84,8 @@ struct RoomTableView: View {
                             }
                         }
                         Divider()
-                        Text("Description: (none)")
-                        Text("Contact: (none)")
+                        Text("Description: \(room.description)")
+                        Text("Contact: \(room.contact)")
                     }
                     .padding()
                     .background(Color.white)

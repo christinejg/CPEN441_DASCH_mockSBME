@@ -11,14 +11,18 @@ import Foundation
 struct Room: Identifiable, Hashable {
     var id = UUID()
     var name: String
+    var description: String
+    var contact: String
     var bookings: [Booking]
     var capacity: Int
     var hasProjector: Bool
     var hasWhiteboard: Bool
 
-    // Optional: you can add a default room for fallback use
+    // Optional default room in case it's needed
     static let defaultRoom = Room(
         name: "Default Room",
+        description: "Default Description",
+        contact: "Default Contact",
         bookings: [],
         capacity: 0,
         hasProjector: false,
