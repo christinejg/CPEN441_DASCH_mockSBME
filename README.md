@@ -14,9 +14,9 @@ This app is mocking part of the design and behaviour of the UBC SBME Booking Sys
 
 #### Features
 ##### Login System
-Username: Student
+Username: `Student`
 
-Password: sbme
+Password: `sbme`
 
 Upon successful login, users are directed to the main screen where they can browse and filter available rooms.
 
