@@ -18,6 +18,8 @@ struct MainView: View {
     @State private var selectedRoomNames: Set<String> = []
     @State private var minCapacity: Int = 0
     @State private var selectedResourceType: String = "-All-"
+    @State private var showCalendar = false
+    @State private var selectedMonth = Date()
     
     @State private var startDate = Date()
     @State private var duration: Int = 7
@@ -35,11 +37,107 @@ struct MainView: View {
                     startTime: timeOn(date: Date(), hour: 11, minute: 0),
                     endTime: timeOn(date: Date(), hour: 13, minute: 0),
                     title: "Private Capstone Meeting"
-                )
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 15, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 9, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 10, minute: 30),
+                    title: "Research Discussion"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 15, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 5, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
             ],
             capacity: 6,
             hasProjector: true,
-            hasWhiteboard: false
+            hasWhiteboard: true
         ),
         Room(
             name: "2003-Project Room",
@@ -47,14 +145,110 @@ struct MainView: View {
             contact: "Contact: room-booking@uni.edu",
             bookings: [
                 Booking(
-                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
-                    startTime: timeOn(date: Date(), hour: 14, minute: 30),
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 9, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 10, minute: 0),
+                    title: "Study Session"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 12, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 12, minute: 30),
+                    title: "Study Session"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 13, minute: 30),
                     endTime: timeOn(date: Date(), hour: 15, minute: 30),
-                    title: "Study Group"
-                )
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 17, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 9, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 10, minute: 30),
+                    title: "Study Session"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Study Session"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 16, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 9, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    title: "Study Session"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 5, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
             ],
             capacity: 8,
-            hasProjector: false,
+            hasProjector: true,
             hasWhiteboard: true
         ),
         Room(
@@ -63,11 +257,107 @@ struct MainView: View {
             contact: "Contact: 2005-room@uni.edu",
             bookings: [
                 Booking(
-                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
-                    startTime: timeOn(date: Date(), hour: 9, minute: 0),
-                    endTime: timeOn(date: Date(), hour: 10, minute: 30),
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 10, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 12, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 13, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 16, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 17, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 9, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 11, minute: 30),
                     title: "Research Discussion"
-                )
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 15, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 12, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 14, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 5, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
             ],
             capacity: 4,
             hasProjector: true,
@@ -79,11 +369,107 @@ struct MainView: View {
             contact: "Contact: 2007-room@uni.edu",
             bookings: [
                 Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 10, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 12, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 13, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 14, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 15, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 9, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 10, minute: 30),
+                    title: "Research Discussion"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 16, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
                     date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
                     startTime: timeOn(date: Date(), hour: 13, minute: 0),
-                    endTime: timeOn(date: Date(), hour: 14, minute: 30),
-                    title: "Design Thinking Session"
-                )
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 5, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
             ],
             capacity: 10,
             hasProjector: false,
@@ -95,11 +481,107 @@ struct MainView: View {
             contact: "Contact: 2009-room@uni.edu",
             bookings: [
                 Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 15, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 9, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 10, minute: 30),
+                    title: "Research Discussion"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 15, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
                     date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
-                    startTime: timeOn(date: Date(), hour: 15, minute: 0),
-                    endTime: timeOn(date: Date(), hour: 17, minute: 0),
-                    title: "Tech Workshop"
-                )
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 5, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
             ],
             capacity: 12,
             hasProjector: true,
@@ -111,11 +593,107 @@ struct MainView: View {
             contact: "Contact: 2011-room@uni.edu",
             bookings: [
                 Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 15, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 9, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 10, minute: 30),
+                    title: "Research Discussion"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 15, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
                     date: Calendar.current.date(byAdding: .day, value: 5, to: Date())!,
-                    startTime: timeOn(date: Date(), hour: 10, minute: 0),
-                    endTime: timeOn(date: Date(), hour: 12, minute: 0),
-                    title: "Project Kickoff"
-                )
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
             ],
             capacity: 8,
             hasProjector: false,
@@ -127,14 +705,110 @@ struct MainView: View {
             contact: "Contact: 2013-room@uni.edu",
             bookings: [
                 Booking(
-                    date: Calendar.current.date(byAdding: .day, value: 6, to: Date())!,
-                    startTime: timeOn(date: Date(), hour: 8, minute: 30),
-                    endTime: timeOn(date: Date(), hour: 10, minute: 0),
-                    title: "Early Bird Team Huddle"
-                )
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 9, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 11, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 15, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Date(),
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 9, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 10, minute: 30),
+                    title: "Research Discussion"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 15, minute: 30),
+                    endTime: timeOn(date: Date(), hour: 17, minute: 30),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 15, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 18, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 20, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
+                Booking(
+                    date: Calendar.current.date(byAdding: .day, value: 5, to: Date())!,
+                    startTime: timeOn(date: Date(), hour: 11, minute: 0),
+                    endTime: timeOn(date: Date(), hour: 13, minute: 0),
+                    title: "Private Capstone Meeting"
+                ),
             ],
             capacity: 5,
-            hasProjector: true,
+            hasProjector: false,
             hasWhiteboard: false
         )
     ]
@@ -165,7 +839,15 @@ struct MainView: View {
             // Icons for Home, Calendar, and Duration
             HStack {
                 Image(systemName: "house.fill")
-                Image(systemName: "calendar")
+
+                Button(action: {
+                    withAnimation {
+                        showCalendar.toggle()
+                    }
+                }) {
+                    Image(systemName: "calendar")
+                }
+
                 Button(action: {
                     // Duration Selector Popup
                 }) {
@@ -173,7 +855,13 @@ struct MainView: View {
                 }
             }
             
-            ScrollView {
+            VStack {
+                if showCalendar {
+                    CalendarView(selectedMonth: $selectedMonth, startDate: $startDate, showCalendar: $showCalendar)
+                        .padding(.bottom, 8)
+                }
+
+                ScrollView {
                     VStack(alignment: .leading) {
                         if showFilter {
                             FilterMenu(
@@ -196,6 +884,8 @@ struct MainView: View {
                     }
                     .padding(.horizontal)
                 }
+            }
+
 
         }
         .onAppear {

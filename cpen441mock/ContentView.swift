@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var username: String = ""
     @State private var password: String = ""
-    @State private var isLoggedIn: Bool = false
+    @State private var isLoggedIn: Bool = true
 
     var body: some View {
         if isLoggedIn {

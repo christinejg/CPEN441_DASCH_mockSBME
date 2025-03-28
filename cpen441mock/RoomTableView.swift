@@ -41,7 +41,7 @@ struct RoomTableView: View {
                     .frame(width: 140, alignment: .leading)
                     .padding()
                     
-                    // 🔥 COLUMN DIVIDER
+                    // COLUMN DIVIDER
                     Rectangle()
                         .fill(Color.black)
                         .frame(width: 1)
@@ -61,44 +61,47 @@ struct RoomTableView: View {
                     .padding()
                 }
                 .overlay(
+                    // INFO POPUP positioned relative to the row
+                    Group {
+                        if selectedRoomForInfo == room {
+                            VStack(alignment: .leading, spacing: 8) {
+                                HStack {
+                                    Text(room.name)
+                                        .font(.headline)
+                                    Spacer()
+                                    Button(action: {
+                                        selectedRoomForInfo = nil
+                                    }) {
+                                        Text("Close")
+                                            .foregroundColor(.red)
+                                    }
+                                }
+                                Divider()
+                                Text("Description: \(room.description)")
+                                Text("Contact: \(room.contact)")
+                            }
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(8)
+                            .shadow(radius: 10)
+                            .frame(width: 300)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
+                            // Adjust offset to position near the info icon
+                            .offset(x: 0, y: -60)
+                            .zIndex(1) // Ensure popup appears above other content
+                        }
+                    }
+                )
+                .overlay(
                     Rectangle()
                         .stroke(Color.black, lineWidth: 1)
                 )
             }
         }
         .padding(.bottom)
-        .overlay(
-            // INFO POPUP
-            Group {
-                if let room = selectedRoomForInfo {
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack {
-                            Text(room.name)
-                                .font(.headline)
-                            Spacer()
-                            Button(action: {
-                                selectedRoomForInfo = nil
-                            }) {
-                                Text("Close")
-                                    .foregroundColor(.red)
-                            }
-                        }
-                        Divider()
-                        Text("Description: \(room.description)")
-                        Text("Contact: \(room.contact)")
-                    }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(8)
-                    .shadow(radius: 10)
-                    .frame(maxWidth: 300)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
-                }
-            }
-        )
     }
 
     func dateHeader(for date: Date) -> String {
