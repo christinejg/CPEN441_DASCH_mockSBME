@@ -19,10 +19,29 @@ struct ReservationView: View {
     @State private var description: String = ""
     
     // Time options for the dropdown
-    let timeSlots: [String] = [
-        "8:00AM", "9:30AM", "11:00AM", "1:00PM",
-        "2:30PM", "4:00PM", "5:30PM", "7:00PM", "8:30PM"
-    ]
+    var availableTimeSlots: [String] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        
+        var slots: [String] = []
+        var currentTime = Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: date)!
+
+        let endTime = Calendar.current.date(bySettingHour: 21, minute: 0, second: 0, of: date)!
+        
+        while currentTime <= endTime {
+            let timeString = formatter.string(from: currentTime)
+            
+            // Only add time slots that don't overlap with existing bookings
+            if !isTimeSlotBooked(timeString, on: date) {
+                slots.append(timeString)
+            }
+            
+            // Increment by 30 minutes
+            currentTime = Calendar.current.date(byAdding: .minute, value: 30, to: currentTime)!
+        }
+        
+        return slots
+    }
     
     @State private var selectedStartTime = "9:30AM"
     @State private var selectedEndTime = "11:00AM"
@@ -68,7 +87,7 @@ struct ReservationView: View {
                         HStack {
                             Text(formatDate(date))
                             Picker("Start Time", selection: $selectedStartTime) {
-                                ForEach(timeSlots, id: \.self) { time in
+                                ForEach(availableTimeSlots, id: \.self) { time in
                                     Text(time).tag(time)
                                 }
                             }
@@ -80,11 +99,12 @@ struct ReservationView: View {
                         HStack {
                             Text(formatDate(date))
                             Picker("End Time", selection: $selectedEndTime) {
-                                ForEach(timeSlots, id: \.self) { time in
+                                ForEach(availableTimeSlots, id: \.self) { time in
                                     Text(time).tag(time)
                                 }
                             }
                             .pickerStyle(MenuPickerStyle())
+
                         }
 
                         // Duration Calculation
@@ -160,6 +180,10 @@ struct ReservationView: View {
         let start = timeToDate(time: selectedStartTime, for: date)
         let end = timeToDate(time: selectedEndTime, for: date)
         
+        if end <= start {
+            return "Invalid duration"
+        }
+        
         let duration = end.timeIntervalSince(start) / 3600.0  // Duration in hours
         
         // Check if the duration is a whole number or not
@@ -170,13 +194,14 @@ struct ReservationView: View {
         }
     }
 
+
     // Convert time string to Date object
     func timeToDate(time: String, for date: Date) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "hh:mma"
         if let timeDate = formatter.date(from: time) {
             let calendar = Calendar.current
-            let components = calendar.dateComponents([.year, .month, .day], from: date)
+            _ = calendar.dateComponents([.year, .month, .day], from: date)
             let finalDate = calendar.date(bySettingHour: calendar.component(.hour, from: timeDate),
                                           minute: calendar.component(.minute, from: timeDate),
                                           second: 0,
@@ -190,4 +215,17 @@ struct ReservationView: View {
     func bookRoom() {
         print("Booking created for \(room.name) on \(formatDate(date)) from \(selectedStartTime) to \(selectedEndTime)")
     }
+    func isTimeSlotBooked(_ time: String, on date: Date) -> Bool {
+        let slotStartTime = timeToDate(time: time, for: date)
+        
+        for booking in room.bookings where Calendar.current.isDate(booking.date, inSameDayAs: date) {
+            if slotStartTime >= booking.startTime && slotStartTime < booking.endTime {
+                return true // Slot is already booked
+            }
+        }
+        
+        return false
+    }
+    
+
 }
